@@ -12,3 +12,4 @@
 /home/will/sarcasm/obj/Debug/net8.0/sarcasm.pdb
 /home/will/sarcasm/obj/Debug/net8.0/sarcasm.genruntimeconfig.cache
 /home/will/sarcasm/obj/Debug/net8.0/ref/sarcasm.dll
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.sourcelink.json

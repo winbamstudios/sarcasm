@@ -133,6 +133,14 @@ namespace SARCASM
                         {
                             opcodes[i] = 13;
                         }
+                        else if (syntax[i].ToLower() == "mba")
+                        {
+                            opcodes[i] = 14;
+                        }
+                        else if (syntax[i].ToLower() == "mbb")
+                        {
+                            opcodes[i] = 15;
+                        }
                         else
                         {
                             Console.WriteLine("Instruction \"" + syntax[i] + "\" does not exist!");
