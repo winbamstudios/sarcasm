@@ -81,7 +81,7 @@ namespace SARCASM
                             }
                             else
                             {
-                                Console.WriteLine("ERROR! Line " + e+1 + " may be Integer to Register or RAM to Register! Which is it? (Y for Int2Ram, any other key for Ram2Reg)");
+                                Console.WriteLine("ERROR! Line " + e+1 + " may be Integer to Register or RAM to Register! Which is it? (Y for Int2Reg, any other key for Ram2Reg)");
                                 ConsoleKeyInfo cki = Console.ReadKey();
                                 if (cki.KeyChar == 'y')
                                 {
