@@ -1,0 +1,14 @@
+/home/will/sarcasm/bin/Debug/net8.0/sarcasm
+/home/will/sarcasm/bin/Debug/net8.0/sarcasm.deps.json
+/home/will/sarcasm/bin/Debug/net8.0/sarcasm.runtimeconfig.json
+/home/will/sarcasm/bin/Debug/net8.0/sarcasm.dll
+/home/will/sarcasm/bin/Debug/net8.0/sarcasm.pdb
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.GeneratedMSBuildEditorConfig.editorconfig
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.AssemblyInfoInputs.cache
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.AssemblyInfo.cs
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.csproj.CoreCompileInputs.cache
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.dll
+/home/will/sarcasm/obj/Debug/net8.0/refint/sarcasm.dll
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.pdb
+/home/will/sarcasm/obj/Debug/net8.0/sarcasm.genruntimeconfig.cache
+/home/will/sarcasm/obj/Debug/net8.0/ref/sarcasm.dll
