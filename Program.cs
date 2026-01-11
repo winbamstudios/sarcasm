@@ -17,19 +17,21 @@ namespace SARCASM
                 FileAsm = File.ReadAllLines(args[0]);
                 Assembler.Assemble();
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("That's not a file.");
-                Environment.Exit(1);
+                Console.WriteLine(ex.Message);
+                //Environment.Exit(1);
             }
             Console.WriteLine(System.Text.Encoding.Default.GetString(CompiledAsm));
             try
             {
                 File.WriteAllBytes(args[1], CompiledAsm);
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("No output file specified.");
+                //Console.WriteLine("No output file specified.");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("(this likely means you did not specify an output file)");
             }
         }
     }
@@ -83,7 +85,7 @@ namespace SARCASM
                             }
                             else
                             {
-                                if (syntax[i+1].StartsWith('$'))
+                                if (syntax[i+1].StartsWith('R'))
                                 {
                                     isRam = true;
                                     opcodes[i] = 5;
