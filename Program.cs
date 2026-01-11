@@ -138,11 +138,25 @@ namespace SARCASM
                         }
                         else if (syntax[i].ToLower() == "mba")
                         {
-                            opcodes[i] = 14;
+                            if (syntax[i+1].StartsWith('R'))
+                            {
+                                opcodes[i] = 16;
+                            }
+                            else
+                            {
+                                opcodes[i] = 14;
+                            }
                         }
                         else if (syntax[i].ToLower() == "mbb")
                         {
-                            opcodes[i] = 15;
+                            if (syntax[i+1].StartsWith('R'))
+                            {
+                                opcodes[i] = 17;
+                            }
+                            else
+                            {
+                                opcodes[i] = 15;
+                            }
                         }
                         else
                         {
