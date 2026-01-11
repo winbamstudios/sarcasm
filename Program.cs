@@ -220,9 +220,10 @@ namespace SARCASM
                     {
                         Console.WriteLine("I don't know what the heck you did, but you horribly screwed up the compiler. Good job");
                     }
-                    opcodes.CopyTo(Program.CompiledAsm, Program.CurrentByte);
-                    Program.CurrentByte += 4;
+                    
                 }
+                opcodes.CopyTo(Program.CompiledAsm, Program.CurrentByte);
+                Program.CurrentByte += 4;
             }
         }
     }
