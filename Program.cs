@@ -62,6 +62,7 @@ namespace SARCASM
                 e++;
                 string[] syntax = s.Split(',');
                 byte[] opcodes = new byte[4];
+                bool isRam = false;
                 for (int i = 0; i < 4; i++)
                 {
                     if (i == 0)
@@ -76,20 +77,20 @@ namespace SARCASM
                                 }
                                 else
                                 {
+                                    isRam = true;
                                     opcodes[i] = 4;
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("ERROR! Line " + e+1 + " may be Integer to Register or RAM to Register! Which is it? (Y for Int2Reg, any other key for Ram2Reg)");
-                                ConsoleKeyInfo cki = Console.ReadKey();
-                                if (cki.KeyChar == 'y')
+                                if (syntax[i+1].StartsWith('$'))
                                 {
-                                    opcodes[i] = 6;
+                                    isRam = true;
+                                    opcodes[i] = 5;
                                 }
                                 else
                                 {
-                                    opcodes[i] = 5;
+                                    opcodes[i] = 6;
                                 }
                             }
                         }
@@ -167,7 +168,14 @@ namespace SARCASM
                         }
                         else
                         {
-                            opcodes[i] = Convert.ToByte(syntax[i]);
+                            if (isRam)
+                            {
+                                opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
+                            }
+                            else
+                            {
+                                opcodes[i] = Convert.ToByte(syntax[i]);
+                            }
                         }
                     }
                     else if (i == 2)
@@ -190,7 +198,14 @@ namespace SARCASM
                         }
                         else
                         {
-                            opcodes[i] = Convert.ToByte(syntax[i]);
+                            if (isRam)
+                            {
+                                opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
+                            }
+                            else
+                            {
+                                opcodes[i] = Convert.ToByte(syntax[i]);
+                            }
                         }
                     }
                     else if (i == 3)
