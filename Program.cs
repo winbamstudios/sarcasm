@@ -10,7 +10,7 @@ namespace SARCASM
         public static int CurrentByte = 0;
         static void Main(string[] args)
         {
-            Console.WriteLine("Simple Although Really Cool ASseMbler Jan 2026 Release");
+            Console.WriteLine("Simple Although Really Cool ASseMbler Mar 2026 Release");
             Console.WriteLine("© 2026 winbamstudios");
             try
             {
@@ -62,6 +62,10 @@ namespace SARCASM
             foreach (string s in Program.FileAsm)
             {
                 e++;
+                if (s.StartsWith(';'))
+                {
+                    continue;
+                }
                 string[] syntax = s.Split(',');
                 byte[] opcodes = new byte[4];
                 bool isRam = false;
@@ -85,7 +89,7 @@ namespace SARCASM
                             }
                             else
                             {
-                                if (syntax[i+1].StartsWith('R'))
+                                if (syntax[i+1].Contains("R"))
                                 {
                                     isRam = true;
                                     opcodes[i] = 5;
@@ -136,6 +140,7 @@ namespace SARCASM
                         {
                             opcodes[i] = 13;
                         }
+                        /*
                         else if (syntax[i].ToLower() == "mba")
                         {
                             if (syntax[i+1].StartsWith('R'))
@@ -157,6 +162,15 @@ namespace SARCASM
                             {
                                 opcodes[i] = 15;
                             }
+                        }
+                        */
+                        else if (syntax[i].ToLower() == "swb")
+                        {
+                            opcodes[i] = 14;
+                        }
+                        else if (syntax[i].ToLower() == "msg")
+                        {
+                            opcodes[i] = 15;
                         }
                         else
                         {
@@ -181,6 +195,10 @@ namespace SARCASM
                         else if (syntax[i].ToLower() == "d")
                         {
                             opcodes[i] = 254;
+                        }
+                        else if (syntax[i].StartsWith("R"))
+                        {
+                            opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
                         }
                         else
                         {
@@ -211,6 +229,10 @@ namespace SARCASM
                         else if (syntax[i].ToLower() == "d")
                         {
                             opcodes[i] = 254;
+                        }
+                        else if (syntax[i].StartsWith("R"))
+                        {
+                            opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
                         }
                         else
                         {
