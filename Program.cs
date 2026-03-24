@@ -75,9 +75,9 @@ namespace SARCASM
                     {
                         if (syntax[i].ToLower() == "mov")
                         {
-                            if (syntax[i + 1].ToLower() == "a" || syntax[i + 1].ToLower() == "b" || syntax[i + 1].ToLower() == "c" || syntax[i + 1].ToLower() == "d")
+                            if (syntax[i + 1].ToLower() == "a" || syntax[i + 1].ToLower() == "b" || syntax[i + 1].ToLower() == "c" || syntax[i + 1].ToLower() == "d" || syntax[i + 1].ToLower() == "sp")
                             {
-                                if (syntax[i + 2].ToLower() == "a" || syntax[i + 1].ToLower() == "b" || syntax[i + 1].ToLower() == "c" || syntax[i + 1].ToLower() == "d")
+                                if (syntax[i + 2].ToLower() == "a" || syntax[i + 1].ToLower() == "b" || syntax[i + 1].ToLower() == "c" || syntax[i + 1].ToLower() == "d" || syntax[i + 1].ToLower() == "sp")
                                 {
                                     opcodes[i] = 3;
                                 }
@@ -196,6 +196,10 @@ namespace SARCASM
                         {
                             opcodes[i] = 254;
                         }
+                        else if (syntax[i].ToLower() == "sp")
+                        {
+                            opcodes[i] = 255;
+                        }
                         else if (syntax[i].StartsWith("R"))
                         {
                             opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
@@ -230,6 +234,10 @@ namespace SARCASM
                         {
                             opcodes[i] = 254;
                         }
+                        else if (syntax[i].ToLower() == "sp")
+                        {
+                            opcodes[i] = 255;
+                        }
                         else if (syntax[i].StartsWith("R"))
                         {
                             opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
@@ -263,6 +271,10 @@ namespace SARCASM
                         else if (syntax[i].ToLower() == "d")
                         {
                             opcodes[i] = 254;
+                        }
+                        else if (syntax[i].ToLower() == "sp")
+                        {
+                            opcodes[i] = 255;
                         }
                         else
                         {
