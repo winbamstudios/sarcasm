@@ -6,7 +6,7 @@ namespace SARCASM
     internal class Program
     {
         public static string[] FileAsm;
-        public static byte[] CompiledAsm = new byte[1024];
+        public static byte[] CompiledAsm = new byte[8192];
         public static int CurrentByte = 0;
         static void Main(string[] args)
         {
@@ -171,6 +171,30 @@ namespace SARCASM
                         else if (syntax[i].ToLower() == "msg")
                         {
                             opcodes[i] = 15;
+                        }
+                        else if (syntax[i].ToLower() == "mul")
+                        {
+                            opcodes[i] = 16;
+                        }
+                        else if (syntax[i].ToLower() == "div")
+                        {
+                            opcodes[i] = 17;
+                        }
+                        else if (syntax[i].ToLower() == "mod")
+                        {
+                            opcodes[i] = 18;
+                        }
+                        else if (syntax[i].ToLower() == "jeq")
+                        {
+                            opcodes[i] = 19;
+                        }
+                        else if (syntax[i].ToLower() == "jlt")
+                        {
+                            opcodes[i] = 20;
+                        }
+                        else if (syntax[i].ToLower() == "jgt")
+                        {
+                            opcodes[i] = 21;
                         }
                         else
                         {
