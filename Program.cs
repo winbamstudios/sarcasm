@@ -69,6 +69,7 @@ namespace SARCASM
                 string[] syntax = s.Split(',');
                 byte[] opcodes = new byte[4];
                 bool isRam = false;
+                bool keepAnEyeOnThisOne = false;
                 for (int i = 0; i < 4; i++)
                 {
                     if (i == 0)
@@ -245,23 +246,58 @@ namespace SARCASM
                     {
                         if (syntax[i].ToLower() == "a")
                         {
-                            opcodes[i] = 251;
+                            if (!isRam)
+                            {
+                                opcodes[i] = 251;
+                            }
+                            else
+                            {
+                                keepAnEyeOnThisOne = true;
+                            }
                         }
                         else if (syntax[i].ToLower() == "b")
                         {
-                            opcodes[i] = 252;
+                            if (!isRam)
+                            {
+                                opcodes[i] = 252;
+                            }
+                            else
+                            {
+                                keepAnEyeOnThisOne = true;
+                            }
                         }
                         else if (syntax[i].ToLower() == "c")
                         {
-                            opcodes[i] = 253;
+                            if (!isRam)
+                            {
+                                opcodes[i] = 253;
+                            }
+                            else
+                            {
+                                keepAnEyeOnThisOne = true;
+                            }
                         }
                         else if (syntax[i].ToLower() == "d")
                         {
-                            opcodes[i] = 254;
+                            if (!isRam)
+                            {
+                                opcodes[i] = 254;
+                            }
+                            else
+                            {
+                                keepAnEyeOnThisOne = true;
+                            }
                         }
                         else if (syntax[i].ToLower() == "sp")
                         {
-                            opcodes[i] = 255;
+                            if (!isRam)
+                            {
+                                opcodes[i] = 255;
+                            }
+                            else
+                            {
+                                keepAnEyeOnThisOne = true;
+                            }
                         }
                         else if (syntax[i].StartsWith("$"))
                         {
@@ -272,7 +308,8 @@ namespace SARCASM
                         {
                             if (isRam)
                             {
-                                opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
+                                opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                                opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
                             }
                             else
                             {
@@ -282,29 +319,59 @@ namespace SARCASM
                     }
                     else if (i == 3)
                     {
-                        if (syntax[i].ToLower() == "a")
+                        if (keepAnEyeOnThisOne)
                         {
-                            opcodes[i] = 251;
-                        }
-                        else if (syntax[i].ToLower() == "b")
-                        {
-                            opcodes[i] = 252;
-                        }
-                        else if (syntax[i].ToLower() == "c")
-                        {
-                            opcodes[i] = 253;
-                        }
-                        else if (syntax[i].ToLower() == "d")
-                        {
-                            opcodes[i] = 254;
-                        }
-                        else if (syntax[i].ToLower() == "sp")
-                        {
-                            opcodes[i] = 255;
+                            if (syntax[i - 1].ToLower() == "a")
+                            {
+                                opcodes[i] = 251;
+                            }
+                            else if (syntax[i - 1].ToLower() == "b")
+                            {
+                                opcodes[i] = 252;
+                            }
+                            else if (syntax[i - 1].ToLower() == "c")
+                            {
+                                opcodes[i] = 253;
+                            }
+                            else if (syntax[i - 1].ToLower() == "d")
+                            {
+                                opcodes[i] = 254;
+                            }
+                            else if (syntax[i - 1].ToLower() == "sp")
+                            {
+                                opcodes[i] = 255;
+                            }
+                            else
+                            {
+                                opcodes[i] = Convert.ToByte(syntax[i]);
+                            }
                         }
                         else
                         {
-                            opcodes[i] = Convert.ToByte(syntax[i]);
+                            if (syntax[i].ToLower() == "a")
+                            {
+                                opcodes[i] = 251;
+                            }
+                            else if (syntax[i].ToLower() == "b")
+                            {
+                                opcodes[i] = 252;
+                            }
+                            else if (syntax[i].ToLower() == "c")
+                            {
+                                opcodes[i] = 253;
+                            }
+                            else if (syntax[i].ToLower() == "d")
+                            {
+                                opcodes[i] = 254;
+                            }
+                            else if (syntax[i].ToLower() == "sp")
+                            {
+                                opcodes[i] = 255;
+                            }
+                            else
+                            {
+                                opcodes[i] = Convert.ToByte(syntax[i]);
+                            }
                         }
                     }
                     else
