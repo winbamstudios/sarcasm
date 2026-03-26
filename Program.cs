@@ -89,7 +89,7 @@ namespace SARCASM
                             }
                             else
                             {
-                                if (syntax[i+1].Contains("R"))
+                                if (syntax[i+1].Contains("$"))
                                 {
                                     isRam = true;
                                     opcodes[i] = 5;
@@ -224,9 +224,10 @@ namespace SARCASM
                         {
                             opcodes[i] = 255;
                         }
-                        else if (syntax[i].StartsWith("R"))
+                        else if (syntax[i].StartsWith("$"))
                         {
-                            opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
+                            opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                            opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
                         }
                         else
                         {
@@ -262,9 +263,10 @@ namespace SARCASM
                         {
                             opcodes[i] = 255;
                         }
-                        else if (syntax[i].StartsWith("R"))
+                        else if (syntax[i].StartsWith("$"))
                         {
-                            opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
+                            opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                            opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
                         }
                         else
                         {
