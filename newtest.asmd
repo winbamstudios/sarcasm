@@ -1,0 +1,9 @@
+mov,78,A,0
+mov,A,$007F,0
+mov,$007F,B,0
+add,A,B,C
+push,C,0,0
+mov,A,C,0
+pop,B,0,0
+add,C,B,D
+hlt,0,0,0

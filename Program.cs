@@ -62,7 +62,7 @@ namespace SARCASM
             foreach (string s in Program.FileAsm)
             {
                 e++;
-                if (s.StartsWith(';'))
+                if (s.StartsWith(';') || s == "")
                 {
                     continue;
                 }
@@ -80,6 +80,7 @@ namespace SARCASM
                             {
                                 if (syntax[i + 2].ToLower() == "a" || syntax[i + 1].ToLower() == "b" || syntax[i + 1].ToLower() == "c" || syntax[i + 1].ToLower() == "d" || syntax[i + 1].ToLower() == "sp")
                                 {
+                                    isRam = false;
                                     opcodes[i] = 3;
                                 }
                                 else
@@ -90,13 +91,14 @@ namespace SARCASM
                             }
                             else
                             {
-                                if (syntax[i+1].Contains("$"))
+                                if (syntax[i+1].StartsWith("$") || syntax[i].StartsWith("$"))
                                 {
                                     isRam = true;
                                     opcodes[i] = 5;
                                 }
                                 else
                                 {
+                                    isRam = false;
                                     opcodes[i] = 6;
                                 }
                             }
@@ -197,6 +199,14 @@ namespace SARCASM
                         {
                             opcodes[i] = 21;
                         }
+                        else if (syntax[i].ToLower() == "inb")
+                        {
+                            opcodes[i] = 22;
+                        }
+                        else if (syntax[i].ToLower() == "outb")
+                        {
+                            opcodes[i] = 23;
+                        }
                         else
                         {
                             Console.WriteLine("Instruction \"" + syntax[i] + "\" does not exist!");
@@ -234,11 +244,19 @@ namespace SARCASM
                         {
                             if (isRam)
                             {
-                                opcodes[i] = Convert.ToByte(syntax[i].Substring(1));
+                                opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                                opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
                             }
                             else
                             {
-                                opcodes[i] = Convert.ToByte(syntax[i]);
+                                if (!syntax[i].StartsWith("$"))
+                                {
+                                    opcodes[i] = Convert.ToByte(syntax[i]);
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -249,10 +267,12 @@ namespace SARCASM
                             if (!isRam)
                             {
                                 opcodes[i] = 251;
+                                keepAnEyeOnThisOne = false;
                             }
                             else
                             {
                                 keepAnEyeOnThisOne = true;
+                                continue;
                             }
                         }
                         else if (syntax[i].ToLower() == "b")
@@ -260,10 +280,12 @@ namespace SARCASM
                             if (!isRam)
                             {
                                 opcodes[i] = 252;
+                                keepAnEyeOnThisOne = false;
                             }
                             else
                             {
                                 keepAnEyeOnThisOne = true;
+                                continue;
                             }
                         }
                         else if (syntax[i].ToLower() == "c")
@@ -271,10 +293,12 @@ namespace SARCASM
                             if (!isRam)
                             {
                                 opcodes[i] = 253;
+                                keepAnEyeOnThisOne = false;
                             }
                             else
                             {
                                 keepAnEyeOnThisOne = true;
+                                continue;
                             }
                         }
                         else if (syntax[i].ToLower() == "d")
@@ -282,10 +306,12 @@ namespace SARCASM
                             if (!isRam)
                             {
                                 opcodes[i] = 254;
+                                keepAnEyeOnThisOne = false;
                             }
                             else
                             {
                                 keepAnEyeOnThisOne = true;
+                                continue;
                             }
                         }
                         else if (syntax[i].ToLower() == "sp")
@@ -293,10 +319,12 @@ namespace SARCASM
                             if (!isRam)
                             {
                                 opcodes[i] = 255;
+                                keepAnEyeOnThisOne = false;
                             }
                             else
                             {
                                 keepAnEyeOnThisOne = true;
+                                continue;
                             }
                         }
                         else if (syntax[i].StartsWith("$"))
@@ -313,7 +341,14 @@ namespace SARCASM
                             }
                             else
                             {
-                                opcodes[i] = Convert.ToByte(syntax[i]);
+                                if (!syntax[i - 1].StartsWith("$"))
+                                {
+                                    opcodes[i] = Convert.ToByte(syntax[i]);
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -343,7 +378,14 @@ namespace SARCASM
                             }
                             else
                             {
-                                opcodes[i] = Convert.ToByte(syntax[i]);
+                                if (!syntax[i - 1].StartsWith("$"))
+                                {
+                                    opcodes[i] = Convert.ToByte(syntax[i]);
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
                         }
                         else
@@ -370,7 +412,14 @@ namespace SARCASM
                             }
                             else
                             {
-                                opcodes[i] = Convert.ToByte(syntax[i]);
+                                if (!syntax[i - 1].StartsWith("$"))
+                                {
+                                    opcodes[i] = Convert.ToByte(syntax[i]);
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -378,7 +427,6 @@ namespace SARCASM
                     {
                         Console.WriteLine("I don't know what the heck you did, but you horribly screwed up the compiler. Good job");
                     }
-                    
                 }
                 opcodes.CopyTo(Program.CompiledAsm, Program.CurrentByte);
                 Program.CurrentByte += 4;
