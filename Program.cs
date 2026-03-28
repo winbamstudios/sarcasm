@@ -265,17 +265,35 @@ namespace SARCASM
                         {
                             opcodes[i] = 255;
                         }
+                        else if (syntax[i].ToLower() == "mp")
+                        {
+                            opcodes[i] = 255;
+                        }
                         else if (syntax[i].StartsWith("$"))
                         {
-                            opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
-                            opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                            if (syntax[i].ToLower() == "$mp")
+                            {
+                                opcodes[i] = 250;
+                            }
+                            else
+                            {
+                                opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                                opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                            }
                         }
                         else
                         {
                             if (isRam)
                             {
-                                opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
-                                opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                                if (syntax[i].ToLower() == "$mp")
+                                {
+                                    opcodes[i] = 250;
+                                }
+                                else
+                                {
+                                    opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                                    opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                                }
                             }
                             else
                             {
@@ -357,17 +375,36 @@ namespace SARCASM
                                 continue;
                             }
                         }
+                        else if (syntax[i].ToLower() == "mp")
+                        {
+                            opcodes[i] = 250;
+                            keepAnEyeOnThisOne = false;
+                        }
                         else if (syntax[i].StartsWith("$"))
                         {
-                            opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
-                            opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                            if (syntax[i].ToLower() == "$mp")
+                            {
+                                opcodes[i] = 250;
+                            }
+                            else
+                            {
+                                opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                                opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                            }
                         }
                         else
                         {
                             if (isRam)
                             {
-                                opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
-                                opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                                if (syntax[i].ToLower() == "$mp")
+                                {
+                                    opcodes[i] = 250;
+                                }
+                                else
+                                {
+                                    opcodes[i] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[1];
+                                    opcodes[i + 1] = BitConverter.GetBytes(Convert.ToInt16(int.Parse(syntax[i].Substring(1), System.Globalization.NumberStyles.HexNumber)))[0];
+                                }
                             }
                             else
                             {
@@ -406,6 +443,10 @@ namespace SARCASM
                             {
                                 opcodes[i] = 255;
                             }
+                            else if (syntax[i - 1].ToLower() == "mp")
+                            {
+                                opcodes[i] = 250;
+                            }
                             else
                             {
                                 if (!syntax[i - 1].StartsWith("$"))
@@ -439,6 +480,10 @@ namespace SARCASM
                             else if (syntax[i].ToLower() == "sp")
                             {
                                 opcodes[i] = 255;
+                            }
+                            else if (syntax[i].ToLower() == "mp")
+                            {
+                                opcodes[i] = 250;
                             }
                             else
                             {
