@@ -66,7 +66,37 @@ namespace SARCASM
                 {
                     continue;
                 }
-                string[] syntax = s.Split(',');
+                string[] syntax = new string[4];
+                string[] syntaxSpaceSplit = s.Split(' ');
+                string syntaxInstruction = syntaxSpaceSplit[0];
+                string[] syntaxArguments;
+                string[] syntaxArgumentsButBetter = new string[3];
+                if (syntaxSpaceSplit.Length > 1)
+                {
+                    syntaxArguments = syntaxSpaceSplit[1].Split(',');
+                    for (int i = 0; i < 3; i++)
+                    {
+                        try
+                        {
+                            syntaxArgumentsButBetter[i] = syntaxArguments[i];
+                        }
+                        catch
+                        {
+                            syntaxArgumentsButBetter[i] = "0";
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        syntaxArgumentsButBetter[i] = "0";
+                    }
+                }
+                syntax[0] = syntaxInstruction;
+                syntax[1] = syntaxArgumentsButBetter[0];
+                syntax[2] = syntaxArgumentsButBetter[1];
+                syntax[3] = syntaxArgumentsButBetter[2];
                 byte[] opcodes = new byte[4];
                 bool isRam = false;
                 bool keepAnEyeOnThisOne = false;
